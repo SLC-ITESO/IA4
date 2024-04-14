@@ -82,7 +82,7 @@ async function confirmItemAdd(){
 }
 
 async function confirmEdit(uuid){
-    let prods = JSON.parse(sessionStorage.getItem('products'));
+    let prods = JSON.parse(sessionStorage.getItem('fullproducts'));
     let prodData = prods.find(p => p.uuid == uuid);
 
     let newData = {
@@ -117,6 +117,7 @@ async function confirmEdit(uuid){
     //put the new data in the products array
     let index = prods.indexOf(prodData);
     prods[index] = data;
+    sessionStorage.setItem('fullproducts', JSON.stringify(prods));
     sessionStorage.setItem('products', JSON.stringify(prods));
     //reloads the page
     showProductAdminTable();
@@ -159,7 +160,6 @@ async function confirmDelete(uuid){
 async function filterByQueries(){
     let prods = JSON.parse(sessionStorage.getItem('fullproducts'));
 
-    let filter = document.getElementById('filterInp').value;
     let minPPU = document.getElementById('minInp').value;
     let maxPPU = document.getElementById('maxInp').value;
 
@@ -169,14 +169,11 @@ async function filterByQueries(){
     if(maxPPU == ''){
         maxPPU = 1000000;
     }
-    if(filter == ''){
-        filter = '.*';
-    }
     //console.log(filter);
     //console.log(minPPU);
     //console.log(maxPPU);
 
-    let filtered = prods.filter(p => p.name.match(filter) && p.pricePerUnit >= minPPU && p.pricePerUnit <= maxPPU);
+    let filtered = prods.filter(p => p.pricePerUnit >= minPPU && p.pricePerUnit <= maxPPU);
 
     document.querySelector('#adminTable').innerHTML = filtered.map((p) => `
     <tr uuidRow="${p.uuid}">
