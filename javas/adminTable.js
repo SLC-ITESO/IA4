@@ -18,7 +18,6 @@ async function showProductAdminTable(){
         <td>${p.unit}</td>
         <td>
             <a class="btn btn-outline-secondary" onclick="editProduct('${p.uuid}')"><i class="bi bi-pencil-square"></i></a>
-            <a class="btn btn-outline-danger" onclick="delProduct('${p.uuid}')"><i class="bi bi-trash3"></i></a>
         </td>
     </tr>
     `).join('');
@@ -187,7 +186,6 @@ async function filterByQueries(){
         <td>${p.unit}</td>
         <td>
             <a class="btn btn-outline-secondary" onclick="editProduct('${p.uuid}')"><i class="bi bi-pencil-square"></i></a>
-            <a class="btn btn-outline-danger" onclick="delProduct('${p.uuid}')"><i class="bi bi-trash3"></i></a>
         </td>
     </tr>
     `).join('');
